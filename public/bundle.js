@@ -26262,28 +26262,146 @@ var Signup = function (_React$Component) {
                         'form',
                         { onSubmit: this.props.handleSubmit },
                         'User :',
-                        React.createElement(Field, { type: 'text', placeholder: 'username', name: 'username', component: 'input' }),
-                        React.createElement(Field, { type: 'text', placeholder: 'lastname', name: 'lastname', component: 'input' }),
-                        React.createElement(Field, { type: 'text', placeholder: 'firstname', name: 'firstname', component: 'input' }),
-                        React.createElement(Field, { type: 'text', placeholder: 'email', name: 'email', component: 'input' }),
-                        React.createElement(Field, { type: 'password', placeholder: 'password', name: 'password', component: 'input' }),
+                        React.createElement(
+                            'div',
+                            null,
+                            React.createElement(Field, { type: 'text', placeholder: 'username', name: 'username', component: 'input' })
+                        ),
+                        React.createElement(
+                            'div',
+                            null,
+                            React.createElement(Field, { type: 'text', placeholder: 'lastname', name: 'lastname', component: 'input' })
+                        ),
+                        React.createElement(
+                            'div',
+                            null,
+                            React.createElement(Field, { type: 'text', placeholder: 'firstname', name: 'firstname', component: 'input' })
+                        ),
+                        React.createElement(
+                            'div',
+                            null,
+                            React.createElement(Field, { type: 'text', placeholder: 'email', name: 'email', component: 'input' })
+                        ),
+                        React.createElement(
+                            'div',
+                            null,
+                            React.createElement(Field, { type: 'password', placeholder: 'password', name: 'password', component: 'input' })
+                        ),
                         React.createElement('br', null),
                         'Folder :',
-                        React.createElement(Field, { type: 'text', placeholder: 'name', name: 'nameFolder', component: 'input' }),
-                        React.createElement(Field, { type: 'text', placeholder: 'description', name: 'descriptionFolder', component: 'input' }),
-                        React.createElement(Field, { type: 'text', placeholder: 'shared or private', name: 'statussharedFolder', component: 'input' }),
+                        React.createElement(
+                            'div',
+                            null,
+                            React.createElement(Field, { type: 'text', placeholder: 'name', name: 'nameFolder', component: 'input' })
+                        ),
+                        React.createElement(
+                            'div',
+                            null,
+                            React.createElement(Field, { type: 'text', placeholder: 'description', name: 'descriptionFolder', component: 'textarea' })
+                        ),
+                        React.createElement(
+                            'div',
+                            null,
+                            React.createElement(
+                                Field,
+                                { type: 'text', name: 'statussharedFolder', component: 'select' },
+                                React.createElement('option', null),
+                                React.createElement(
+                                    'option',
+                                    { value: 'shared' },
+                                    'shared'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: 'private' },
+                                    'private'
+                                )
+                            )
+                        ),
                         React.createElement('br', null),
                         'Snippet :',
-                        React.createElement(Field, { type: 'text', placeholder: 'name', name: 'nameSnippet', component: 'input' }),
-                        React.createElement(Field, { type: 'text', placeholder: 'description', name: 'descriptionSnippet', component: 'input' }),
-                        React.createElement(Field, { type: 'text', placeholder: 'tag', name: 'tagSnippet', component: 'input' }),
-                        React.createElement(Field, { type: 'text', placeholder: 'content', name: 'contentSnippet', component: 'input' }),
-                        React.createElement(Field, { type: 'date', placeholder: 'date', name: 'date', component: 'input' }),
-                        React.createElement(Field, { type: 'text', placeholder: 'type of language', name: 'typelanguage', component: 'input' }),
                         React.createElement(
-                            'button',
-                            { type: 'submit' },
-                            'Valider'
+                            'div',
+                            null,
+                            React.createElement(Field, { type: 'text', placeholder: 'name', name: 'nameSnippet', component: 'input' })
+                        ),
+                        React.createElement(
+                            'div',
+                            null,
+                            React.createElement(Field, { type: 'text', placeholder: 'description', name: 'descriptionSnippet', component: 'textarea' })
+                        ),
+                        React.createElement(
+                            'div',
+                            null,
+                            React.createElement(Field, { type: 'text', placeholder: 'tag', name: 'tagSnippet', component: 'input' })
+                        ),
+                        React.createElement(
+                            'div',
+                            null,
+                            React.createElement(Field, { type: 'text', placeholder: 'content', name: 'contentSnippet', component: 'input' })
+                        ),
+                        React.createElement(
+                            'div',
+                            null,
+                            React.createElement(Field, { type: 'date', placeholder: 'date', name: 'date', component: 'input' })
+                        ),
+                        React.createElement(
+                            'div',
+                            null,
+                            React.createElement(
+                                Field,
+                                { type: 'text', placeholder: 'type of language', name: 'typelanguage', component: 'select' },
+                                React.createElement('option', null),
+                                React.createElement(
+                                    'option',
+                                    { value: 'JS' },
+                                    'Javascript'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: 'HTML' },
+                                    'HTML'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: 'CSS' },
+                                    'CSS'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: 'C' },
+                                    'C'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: 'C++' },
+                                    'C++'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: 'PHP' },
+                                    'PHP'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: 'OC' },
+                                    'Objective C'
+                                ),
+                                React.createElement(
+                                    'option',
+                                    { value: 'Python' },
+                                    'Python'
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            null,
+                            React.createElement(
+                                'button',
+                                { type: 'submit' },
+                                'Valider'
+                            )
                         )
                     )
                 )
