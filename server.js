@@ -26,14 +26,6 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
 
-//Pour les sessions
-app.use(session({
-  secret: 'a4f8071f-c873-4447-8ee2',
-  resave: false,
-  saveUninitialized: false,
- })
-);
-
 //Afficher la page d'accueil
 app.get('/', function (req, res) {
     res.render('index');
@@ -48,13 +40,10 @@ app.post('/signup', function (req, res) {
         password: req.body.password
     });
 
-    if (req.query.username && req.query.firstname && req.query.lastname && req.query.email && req.query.password) {
+    if (req.body.username && req.body.firstname && req.body.lastname && req.body.email && req.body.password) {
         user.save(function (error, user) {
             console.log("user",user);
             console.log("error",error);
-
-            req.session.tokenId = user.id;
-            req.session.isLog = true;
               res.send('signed');
         });
     }
