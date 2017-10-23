@@ -15,13 +15,13 @@ class FolderForm extends React.Component {
                           <form onSubmit={ this.props.handleSubmit }>
                           Folder :
                           <div>
-                              <Field type="text" placeholder="name" name="nameFolder" component="input"/>
+                              <Field type="text" placeholder="Nom du dossier" name="folderName" component="input"/>
                                       </div>
                                       <div>
-                              <Field type="text" placeholder="description" name="descriptionFolder" component="textarea"/>
+                              <Field type="text" placeholder="Description" name="folderDescription" component="textarea"/>
                                       </div>
                                       <div>
-                              <Field type="text" name="statussharedFolder" component="select">
+                              <Field type="text" name="Status du dossier" component="select">
                               <option></option>
                                   <option value="shared">shared</option>
                                   <option value="private">private</option>

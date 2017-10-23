@@ -1,6 +1,5 @@
 var React = require('react');
 var Header   = require('./Header');
-var Folder   = require('./Folder');
 
 class App extends React.Component {
     constructor() {
@@ -11,7 +10,7 @@ class App extends React.Component {
 
         return (
             <div>
-                <Snippet/>
+                <Header/>
             </div>
         )
     }

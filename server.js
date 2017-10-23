@@ -9,20 +9,20 @@ mongoose.connect('mongodb://cokodev:keepcool@ds227035.mlab.com:27035/cokodev',op
 });
 
 var UserSchema = mongoose.Schema({
-    username: String,
-    firstname: String,
-    lastname: String,
+    userName: String,
+    firstName: String,
+    lastName: String,
     email: String,
     password: String,
-    folder:[{nameFolder:String,
-                descriptionFolder: String,
-                statussharedFolder : String,
-                snippet: [{nameSnippet:String,
-                            descriptionSnippet: String,
-                            tagSnippet: String,
-                            contentSnippet: String,
+    folders:[{folderName:String,
+                folderDescription: String,
+                folderStatus : String,
+                snippets: [{snippetName:String,
+                            snippetDescription: String,
+                            snippetTag: String,
+                            snippetContent: String,
                             date : Date,
-                            typelanguage: String
+                            languageType: String
                             }]
                 }]
 });
@@ -50,27 +50,20 @@ app.get('/', function (req, res) {
     res.render('index');
 });
 
+//Page Sign up
 app.post('/signup', function (req, res) {
     var user = new UserModel ({
-        username: req.body.username,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
+        userName: req.body.userName,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         email: req.body.email,
         password: req.body.password,
-        folder:[{nameFolder: req.body.nameFolder,
-                    descriptionFolder:  req.body.descriptionFolder,
-                    statussharedFolder : req.body.statussharedFolder,
-                    snippet: [{nameSnippet: req.body.nameSnippet,
-                                descriptionSnippet: req.body.descriptionSnippet,
-                                tagSnippet: req.body.tagSnippet,
-                                contentSnippet: req.body.contentSnippet,
-                                date : req.body.date,
-                                typelanguage: req.body.typelanguage
-                                }]
+        folders:[{folderName:"default",
+                    snippets: [{snippetName:"default"}]
                     }]
     });
 
-    if (req.body.username && req.body.firstname && req.body.lastname
+    if (req.body.userName && req.body.firstName && req.body.lastName
         && req.body.email && req.body.password) {
 
             /*if (req.body.username && req.body.firstname && req.body.lastname
@@ -119,34 +112,80 @@ app.post('/login', function (req, res) {
            });
       });
 
-app.post('/folder', function (req, res) {
+//Création d'un folder
+app.post('/addfolder', function (req, res) {
 
-    var folder = new UserModel ({
-        folder:[{nameFolder: req.body.nameFolder,
-                    descriptionFolder:  req.body.descriptionFolder,
-                    statussharedFolder : req.body.statussharedFolder,
-                    }]
-    });
-console.log(req.session.isLog);
-    if (req.session.isLog) {
-        //UserModel.find({_id: req.session.tokenId}, function (err, user) {
-                  UserModel.update({_id: req.session.tokenId && folder_id: req.session.tokenId},{folder:req.body.folder}, function (err, folder) {
+    var folder ={folderName:req.body.folderName,
+                    folderDescription: req.body.folderDescription,
+                    folderStatus: req.body.folderStatus,
+                    snippets: []
+                }
 
-                      //save du folder à rajouter
+// Pour enregistrer un snippet
+                /*snippets: [{snippetName: req.body.snippetName,
+                            snippetDescription: req.body.snippetDescription,
+                            snippetTag: req.body.snippetTag,
+                            snippetContent: req.body.snippetContent,
+                            date : req.body.date,
+                            languageType: req.body.languageType
+                            }]
+                }]*/
+        //if (req.session.isLog) {}
+                       console.log("folder "+folder);
+                       UserModel.update({_id:"59edb8e03abdb81780ae520a"},
+                       {$push: {folders:  folder}}, function (err, folder) {
+
                              console.log(" folder recorded !");
                              res.send('recorded');
                                });
-                               } else {
+                               /*} else {
                                    console.log("error folder not recorded");
-                               }
-                     });
+                               }*/
+});
 
+//Modification d'un folder
+/*app.post('/updatefolder', function (req, res) {
 
+    UserModel.update({_id:"59edb8e03abdb81780ae520a"},
+    {{folders:  folder}}, function (err, folder) {
+
+          console.log(" folder updated !");
+          res.send('recorded');
+            });
+});*/
+
+//Création d'un snippet
+app.post('/addsnippet', function (req, res) {
+
+    var snippet ={snippetName: req.body.snippetName,
+                    snippetDescription: req.body.snippetDescription,
+                    snippetTag: req.body.snippetTag,
+                    snippetContent: req.body.snippetContent,
+                    date : req.body.date,
+                    languageType: req.body.languageType
+            }
+        //if (req.session.isLog) {}
+                       console.log("snippet "+snippet);
+                       UserModel.update({_id:"59edb8e03abdb81780ae520a", folders:"59edb9d20aa5121538d33572"},
+                       {$push: {snippets:  snippet}}, function (err, folder) {
+                             console.log(" folder recorded !");
+                             res.send('recorded');
+                               });
+                               /*} else {
+                                   console.log("error folder not recorded");
+                               }*/
+});
 
 app.get('/loginPage', function (req, res) {
-    /*commentsModel.find({tokenUser: req.session.tokenId}, function (err, comments) {
+    UserModel.find({_id:"59edb8e03abdb81780ae520a"}, {folders:{_id: "59edb9810aa5121538d3356f"}} function (err, comments) {
+
+          console.log(folders);
+
      res.send('Recorded comment of user');
- });*/
+ });
+
+});
+
  res.render('loginPage');
  //res.send("Success");
 });

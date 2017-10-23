@@ -1,9 +1,9 @@
 var React = require('react');
 var Header= require('./header');
-var FolderXForm= require('./folderForm');
+var SnippetXForm= require('./snippetForm');
 var {Route, Redirect} = require('react-router');
 
-class Folder extends React.Component {
+class Snippet extends React.Component {
     constructor() {
         super();
             this.submit = this.submit.bind(this);
@@ -14,7 +14,7 @@ class Folder extends React.Component {
         //Ajax Jquery
           $.ajax({
                  type: "POST",
-                 url: "/addfolder",
+                 url: "/addsnippet",
                  // The key needs to match your method's input parameter (case-sensitive).
                  data: values,
                  success: function(data){
@@ -42,10 +42,10 @@ class Folder extends React.Component {
             {redirectComponent}
                   <Header/>
                   <div id='err' color=""></div>
-              <FolderXForm onSubmit={this.submit}/>
+              <SnippetXForm onSubmit={this.submit}/>
           </div>
     );
  }
 }
 
-module.exports = Folder;
+module.exports = Snippet;

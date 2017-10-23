@@ -1,20 +1,22 @@
 var React = require('react');
 var Header   = require('./Header');
-var Folder   = require('./Folder');
 
-class App extends React.Component {
+
+class LoginPage extends React.Component {
     constructor() {
         super();
     }
 
     render() {
 
+
         return (
             <div>
-                <Snippet/>
+            <Header/>
+     Bienvenue sur votre espace privé coKoDev
             </div>
         )
     }
 }
 
-module.exports = App;
+module.exports = LoginPage;

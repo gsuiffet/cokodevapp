@@ -12,6 +12,8 @@ var App    =  require('./components/app');
 var Signup= require('./components/signup');
 var Login= require('./components/login');
 var Folder= require('./components/folder');
+var Snippet= require('./components/snippet');
+var LoginPage= require('./components/loginPage');
 //Reducer global
 var globalReducers =  require('./combineReducer/combineReducer');
 
@@ -28,7 +30,8 @@ ReactDOM.render(
              <Route  path="/signup" component={Signup}/>
                <Route path="/login" component={Login}/>
                <Route path="/folder" component={Folder}/>
-
+                <Route path="/snippet" component={Snippet}/>
+               <Route path="/loginPage" component={LoginPage}/>
         </div>
      </Router>
       </Provider>,
