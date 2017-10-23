@@ -1,7 +1,7 @@
 var React = require('react');
-var Header   = require('./Header');
-var Folder   = require('./Folder');
-
+var Header   = require('./header');
+var Snippet   = require('./snippet');
+var Folder   = require('./folder')
 class App extends React.Component {
     constructor() {
         super();

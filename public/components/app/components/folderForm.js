@@ -21,7 +21,7 @@ class FolderForm extends React.Component {
                               <Field type="text" placeholder="Description" name="folderDescription" component="textarea"/>
                                       </div>
                                       <div>
-                              <Field type="text" name="Status du dossier" component="select">
+                              <Field type="text" placeholder="Status du dossier" name="folderStatus" component="select">
                               <option></option>
                                   <option value="shared">shared</option>
                                   <option value="private">private</option>

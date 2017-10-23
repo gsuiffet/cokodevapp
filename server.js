@@ -8,7 +8,7 @@ mongoose.connect('mongodb://cokodev:keepcool@ds227035.mlab.com:27035/cokodev',op
     console.log(err);
 });
 
-var UserSchema = mongoose.Schema({
+var userSchema = mongoose.Schema({
     userName: String,
     firstName: String,
     lastName: String,
@@ -26,7 +26,7 @@ var UserSchema = mongoose.Schema({
                             }]
                 }]
 });
-var UserModel = mongoose.model('Users', UserSchema);
+var userModel = mongoose.model('users', userSchema);
 
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
@@ -52,7 +52,7 @@ app.get('/', function (req, res) {
 
 //Page Sign up
 app.post('/signup', function (req, res) {
-    var user = new UserModel ({
+    var user = new userModel ({
         userName: req.body.userName,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -92,12 +92,11 @@ app.post('/signup', function (req, res) {
 
 app.post('/login', function (req, res) {
 
-    UserModel.findOne({email: req.body.email, password: req.body.password}, function (err, UserSchema) {
-              //if (clientsSchema && clientsSchema.email == req.body.email && clientsSchema.password == req.body.password) {
-               if (UserSchema) {
+    userModel.findOne({username: req.body.userName, mail: req.body.email, password: req.body.password}, function (err, userSchema) {
+        if (userSchema && userSchema.email == req.body.email && userSchema.password == req.body.password) {
                           req.session.isLog = true;
-                          req.session.tokenId = UserSchema.id;
-                         console.log(UserSchema.id);
+                          req.session.tokenId = userSchema.id;
+                         console.log(userSchema.id);
                           console.log("Bon match !");
                 } else {
                       console.log("Not registered yet");
@@ -121,19 +120,9 @@ app.post('/addfolder', function (req, res) {
                     snippets: []
                 }
 
-// Pour enregistrer un snippet
-                /*snippets: [{snippetName: req.body.snippetName,
-                            snippetDescription: req.body.snippetDescription,
-                            snippetTag: req.body.snippetTag,
-                            snippetContent: req.body.snippetContent,
-                            date : req.body.date,
-                            languageType: req.body.languageType
-                            }]
-                }]*/
         //if (req.session.isLog) {}
-                       console.log("folder "+folder);
-                       UserModel.update({_id:"59edb8e03abdb81780ae520a"},
-                       {$push: {folders:  folder}}, function (err, folder) {
+                       console.log("folder "+JSON.stringify(folder));
+                       userModel.update({_id:"59edea0cbd2f2e2928a84fbe"},{$push: {folders:  folder}}, function (err, folder) {
 
                              console.log(" folder recorded !");
                              res.send('recorded');
@@ -161,35 +150,28 @@ app.post('/addsnippet', function (req, res) {
                     snippetDescription: req.body.snippetDescription,
                     snippetTag: req.body.snippetTag,
                     snippetContent: req.body.snippetContent,
-                    date : req.body.date,
+                    //date : req.body.date   => On la garde dans la base de données mais pas nécessaire dans le formulaire.
                     languageType: req.body.languageType
             }
-        //if (req.session.isLog) {}
-                       console.log("snippet "+snippet);
-                       UserModel.update({_id:"59edb8e03abdb81780ae520a", folders:"59edb9d20aa5121538d33572"},
-                       {$push: {snippets:  snippet}}, function (err, folder) {
-                             console.log(" folder recorded !");
-                             res.send('recorded');
-                               });
-                               /*} else {
-                                   console.log("error folder not recorded");
-                               }*/
+            //new Date(),
+          console.log(JSON.stringify(snippet));
+          userModel.update({'folders._id':"59edeb12a9bd582df8a458f5"},
+                            {$push: {'folders.$.snippets': snippet}}, function (err, snippet) {
+                               console.log("snippet ",JSON.stringify(snippet));
+                               //console.log(" folder recorded !");
+                               res.send('recorded');
+               });
 });
 
+//Pour afficher un folder et un snippet spécifique
 app.get('/loginPage', function (req, res) {
-    UserModel.find({_id:"59edb8e03abdb81780ae520a"}, {folders:{_id: "59edb9810aa5121538d3356f"}} function (err, comments) {
-
-          console.log(folders);
-
+//Pour afficher un folder spécifique
+    userModel.find({_id:"59edea0cbd2f2e2928a84fbe"},{folders: {$elemMatch: {_id:"59edeb12a9bd582df8a458f5"}}}, function (err, user) {
+        console.log(JSON.stringify(user));
      res.send('Recorded comment of user');
- });
 
+     });
 });
-
- res.render('loginPage');
- //res.send("Success");
-});
-
 
 app.listen(80, function () {
     console.log("Server listening on port 8080");

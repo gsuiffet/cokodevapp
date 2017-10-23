@@ -27,9 +27,6 @@ class SnippetForm extends React.Component {
                                           <Field type="text" placeholder="Contenu" name="snippetContent" component="input"/>
                                                   </div>
                                                   <div>
-                                          <Field type="date" placeholder="Date" name="date" component="input"/>
-                                                  </div>
-                                                  <div>
                                           <Field type="text" placeholder="Type de langage" name="languageType" component="select">
                                                   <option></option>
                                                       <option value="JS">Javascript</option>
