@@ -30828,119 +30828,114 @@ var reduxForm = __webpack_require__(8).reduxForm;
 var Field = __webpack_require__(8).Field;
 
 var SnippetForm = function (_React$Component) {
-        _inherits(SnippetForm, _React$Component);
+    _inherits(SnippetForm, _React$Component);
 
-        function SnippetForm() {
-                _classCallCheck(this, SnippetForm);
+    function SnippetForm() {
+        _classCallCheck(this, SnippetForm);
 
-                return _possibleConstructorReturn(this, (SnippetForm.__proto__ || Object.getPrototypeOf(SnippetForm)).call(this));
+        return _possibleConstructorReturn(this, (SnippetForm.__proto__ || Object.getPrototypeOf(SnippetForm)).call(this));
+    }
+
+    _createClass(SnippetForm, [{
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(
+                    'form',
+                    { onSubmit: this.props.handleSubmit },
+                    'Snippet:',
+                    React.createElement(
+                        'div',
+                        null,
+                        React.createElement(Field, { type: 'text', placeholder: 'Nom du snippet', name: 'snippetName', component: 'input' })
+                    ),
+                    React.createElement(
+                        'div',
+                        null,
+                        React.createElement(Field, { type: 'text', placeholder: 'Description', name: 'snippetDescription', component: 'textarea' })
+                    ),
+                    React.createElement(
+                        'div',
+                        null,
+                        React.createElement(Field, { type: 'text', placeholder: 'Tag', name: 'snippetTag', component: 'input' })
+                    ),
+                    React.createElement(
+                        'div',
+                        null,
+                        React.createElement(Field, { type: 'text', placeholder: 'Contenu', name: 'snippetContent', component: 'input' })
+                    ),
+                    React.createElement(
+                        'div',
+                        null,
+                        React.createElement(
+                            Field,
+                            { type: 'text', placeholder: 'Type de langage', name: 'languageType', component: 'select' },
+                            React.createElement('option', null),
+                            React.createElement(
+                                'option',
+                                { value: 'JS' },
+                                'Javascript'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'HTML' },
+                                'HTML'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'CSS' },
+                                'CSS'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'C' },
+                                'C'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'C++' },
+                                'C++'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'PHP' },
+                                'PHP'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'OC' },
+                                'Objective C'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: 'Python' },
+                                'Python'
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        null,
+                        React.createElement(
+                            'button',
+                            { type: 'submit' },
+                            'Submit'
+                        )
+                    )
+                )
+            );
         }
+    }]);
 
-        _createClass(SnippetForm, [{
-                key: 'render',
-                value: function render() {
-                        return React.createElement(
-                                'div',
-                                null,
-                                React.createElement(
-                                        'form',
-                                        { onSubmit: this.props.handleSubmit },
-                                        'Snippet:',
-                                        React.createElement(
-                                                'div',
-                                                null,
-                                                React.createElement(Field, { type: 'text', placeholder: 'Nom du snippet', name: 'snippetName', component: 'input' })
-                                        ),
-                                        React.createElement(
-                                                'div',
-                                                null,
-                                                React.createElement(Field, { type: 'text', placeholder: 'Description', name: 'snippetDescription', component: 'textarea' })
-                                        ),
-                                        React.createElement(
-                                                'div',
-                                                null,
-                                                React.createElement(Field, { type: 'text', placeholder: 'Tag', name: 'snippetTag', component: 'input' })
-                                        ),
-                                        React.createElement(
-                                                'div',
-                                                null,
-                                                React.createElement(Field, { type: 'text', placeholder: 'Contenu', name: 'snippetContent', component: 'input' })
-                                        ),
-                                        React.createElement(
-                                                'div',
-                                                null,
-                                                React.createElement(Field, { type: 'date', placeholder: 'Date', name: 'date', component: 'input' })
-                                        ),
-                                        React.createElement(
-                                                'div',
-                                                null,
-                                                React.createElement(
-                                                        Field,
-                                                        { type: 'text', placeholder: 'Type de langage', name: 'languageType', component: 'select' },
-                                                        React.createElement('option', null),
-                                                        React.createElement(
-                                                                'option',
-                                                                { value: 'JS' },
-                                                                'Javascript'
-                                                        ),
-                                                        React.createElement(
-                                                                'option',
-                                                                { value: 'HTML' },
-                                                                'HTML'
-                                                        ),
-                                                        React.createElement(
-                                                                'option',
-                                                                { value: 'CSS' },
-                                                                'CSS'
-                                                        ),
-                                                        React.createElement(
-                                                                'option',
-                                                                { value: 'C' },
-                                                                'C'
-                                                        ),
-                                                        React.createElement(
-                                                                'option',
-                                                                { value: 'C++' },
-                                                                'C++'
-                                                        ),
-                                                        React.createElement(
-                                                                'option',
-                                                                { value: 'PHP' },
-                                                                'PHP'
-                                                        ),
-                                                        React.createElement(
-                                                                'option',
-                                                                { value: 'OC' },
-                                                                'Objective C'
-                                                        ),
-                                                        React.createElement(
-                                                                'option',
-                                                                { value: 'Python' },
-                                                                'Python'
-                                                        )
-                                                )
-                                        ),
-                                        React.createElement(
-                                                'div',
-                                                null,
-                                                React.createElement(
-                                                        'button',
-                                                        { type: 'submit' },
-                                                        'Submit'
-                                                )
-                                        )
-                                )
-                        );
-                }
-        }]);
-
-        return SnippetForm;
+    return SnippetForm;
 }(React.Component);
 //-----Conteneur
 
 
 var SnippetXForm = reduxForm({
-        form: 'snippet'
+    form: 'snippet'
 })(SnippetForm);
 
 module.exports = SnippetXForm;

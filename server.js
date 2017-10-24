@@ -122,7 +122,7 @@ app.post('/addfolder', function (req, res) {
 
         //if (req.session.isLog) {}
                        console.log("folder "+JSON.stringify(folder));
-                       userModel.update({_id:"59edea0cbd2f2e2928a84fbe"},{$push: {folders:  folder}}, function (err, folder) {
+                       userModel.update({_id:"59ef056a865e362e2092aa6e"},{$push: {folders:  folder}}, function (err, folder) {
 
                              console.log(" folder recorded !");
                              res.send('recorded');
@@ -131,17 +131,6 @@ app.post('/addfolder', function (req, res) {
                                    console.log("error folder not recorded");
                                }*/
 });
-
-//Modification d'un folder
-/*app.post('/updatefolder', function (req, res) {
-
-    UserModel.update({_id:"59edb8e03abdb81780ae520a"},
-    {{folders:  folder}}, function (err, folder) {
-
-          console.log(" folder updated !");
-          res.send('recorded');
-            });
-});*/
 
 //Création d'un snippet
 app.post('/addsnippet', function (req, res) {
@@ -153,9 +142,9 @@ app.post('/addsnippet', function (req, res) {
                     //date : req.body.date   => On la garde dans la base de données mais pas nécessaire dans le formulaire.
                     languageType: req.body.languageType
             }
-            //new Date(),
+
           console.log(JSON.stringify(snippet));
-          userModel.update({'folders._id':"59edeb12a9bd582df8a458f5"},
+          userModel.update({'folders._id':"59ef05b4728f1218a45977a1"},
                             {$push: {'folders.$.snippets': snippet}}, function (err, snippet) {
                                console.log("snippet ",JSON.stringify(snippet));
                                //console.log(" folder recorded !");
@@ -163,15 +152,54 @@ app.post('/addsnippet', function (req, res) {
                });
 });
 
-//Pour afficher un folder et un snippet spécifique
-app.get('/loginPage', function (req, res) {
-//Pour afficher un folder spécifique
-    userModel.find({_id:"59edea0cbd2f2e2928a84fbe"},{folders: {$elemMatch: {_id:"59edeb12a9bd582df8a458f5"}}}, function (err, user) {
-        console.log(JSON.stringify(user));
-     res.send('Recorded comment of user');
+//SUPPRESSION FOLDER ET SNIPPET
+/*Pour supprimer un user: => fonctionne
+userModel.remove({_id:"59eef92df1c2b90b98ca3a85"}, function (err, user) {
+                     console.log(user);
+                     res.send(user);
+     });*/
 
-     });
+/*Pour supprimer un folder : => fonctionne
+userModel.update({_id:"59ee0331a5c8d85d806266b4"},{$pull: {'folders': {_id:"59eeff408b924032943bd8af"}}}, function (err, user) {
+                     console.log(user);
+                     res.send(user);
+     });*/
+
+/*Pour supprimer un snippet : => fonctionne
+userModel.update({'folders._id':"59eeff4a8b924032943bd8b0"},{$pull: {'folders.$.snippets': {_id:"59ef0193cb7d7e1be04f81ac"}}}, function (err, user) {
+                    console.log(user);
+                    res.send(user);
+});*/
+
+//AFFICHAGE FOLDER ET SNIPPET SELECTIONNE
+ //Pour afficher un folder spécifique => fonctionne
+/*userModel.find({_id:"59edea0cbd2f2e2928a84fbe"},{folders: {$elemMatch: {_id:"59edeb12a9bd582df8a458f5"}}}, function (err, user) {
+ console.log(JSON.stringify(user));
+  res.send('Recorded comment of user');
+});*/
+/*Pour afficher un snippet spécifique => ne fonctionne pas
+userModel.find({_id:"59edea0cbd2f2e2928a84fbe"},{snippets: {$elemMatch: {_id:"59edfa7100bd3407e06d576c"}}},
+userModel.find({_id:"59edea0cbd2f2e2928a84fbe"},{'folders.snippets': {$in:{ _id:"59edfa7100bd3407e06d576c"}}},function (err, user) {
+console.log(JSON.stringify(user));
+res.send(user);
+});*/
+
+//MODIFICATION USER, FOLDER ET SNIPPET SELECTIONNE
+/*Modification d'un champ du USER : => fonctionne
+userModel.update({_id:"59ef056a865e362e2092aa6e"}, {firstName: "Olivia"} , function (err, user) {
+                     console.log(user);
+                     res.send(user);
+     });*/
+
+
+app.get('/loginPage', function (req, res) {
+    userModel.update({_id:"59ef056a865e362e2092aa6e",'folders._id':"59eeff408b924032943bd8af"}, {folderName: "Webpack"} , function (err, user) {
+                         console.log(user);
+                         res.send(user);
+         });
 });
+
+
 
 app.listen(80, function () {
     console.log("Server listening on port 8080");
