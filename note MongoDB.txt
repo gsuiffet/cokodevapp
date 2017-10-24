@@ -1,0 +1,50 @@
+Problème avec mongoDB :
+On ne peut pas mettre à jour un tableau d'un tableau (nested arrays).
+Actuellement, sur MLab, nous avons la version: 3.4.9 (MMAPv1).
+Ce bug a été corrigé dans une version mongoDB mise à jour en aout 2017 dans la version 3.5.12.
+
+Voir les deux articles ci-dessous :
+https://stackoverflow.com/questions/14855246/multiple-use-of-the-positional-operator-to-update-nested-arrays
+https://jira.mongodb.org/browse/SERVER-831
+Issue Status as of Aug 11, 2017
+FEATURE DESCRIPTION
+MongoDB 3.5.12 extends all update modifiers to apply to all array elements or all array elements that match a predicate,
+specified in a new update option arrayFilters. This syntax also supports nested array elements.
+VERSIONS
+This new feature is available starting with the MongoDB 3.5.12 development version, and included in the MongoDB 3.6 production version.
+
+Update all matching documents in array
+db.coll.update({}, {$set: {“a.$[i].b”: 2}}, {arrayFilters: [{“i.b”: 0}]})
+Input: {a: [{b: 0}, {b: 1}]}
+Output: {a: [{b: 2}, {b: 1}]}
+
+Update all matching documents in nested array
+db.coll.update({}, {$set: {“a.$[i].c.$[j].d”: 2}}, {arrayFilters: [{“i.b”: 0}, {“j.d”: 0}]})
+Input: {a: [{b: 0, c: [{d: 0}, {d: 1}]}, {b: 1, c: [{d: 0}, {d: 1}]}]}
+Output: {a: [{b: 0, c: [{d: 2}, {d: 1}]}, {b: 1, c: [{d: 0}, {d: 1}]}]}
+
+
+Solutions possibles :
+1. Solution 1 :
+Here is an example with 3 nested arrays:
+
+var collectionNameCursor = db.collection_name.find({...});
+
+collectionNameCursor.forEach(function(collectionDocument) {
+    var firstArray = collectionDocument.firstArray;
+    for(var i = 0; i < firstArray.length; i++) {
+        var secondArray = firstArray[i].secondArray;
+        for(var j = 0; j < secondArray.length; j++) {
+            var thirdArray = secondArray[j].thirdArray;
+            for(var k = 0; k < thirdArray.length; k++) {
+                //... do some logic here with thirdArray's elements
+                db.collection_name.save(collectionDocument);
+            }
+        }
+    }
+});
+
+
+2. Solution 2 :
+Il faut faire une boucle avec un length du nombre de snippets contenus dans le folder et
+faire une condition avec un algorithme pour comparer si le snippet _id sélectionné est égal au snippet _id dans la boucle

@@ -139,7 +139,7 @@ app.post('/addsnippet', function (req, res) {
                     snippetDescription: req.body.snippetDescription,
                     snippetTag: req.body.snippetTag,
                     snippetContent: req.body.snippetContent,
-                    //date : req.body.date   => On la garde dans la base de données mais pas nécessaire dans le formulaire.
+                    date : new Date (),   //=> On la garde dans la base de données mais pas nécessaire dans le formulaire.
                     languageType: req.body.languageType
             }
 
@@ -152,54 +152,73 @@ app.post('/addsnippet', function (req, res) {
                });
 });
 
-//SUPPRESSION FOLDER ET SNIPPET
-/*Pour supprimer un user: => fonctionne
+/*************************************************************************
+SUPPRESSION FOLDER ET SNIPPET
+*************************************************************************/
+/*Pour supprimer un USER : => fonctionne
 userModel.remove({_id:"59eef92df1c2b90b98ca3a85"}, function (err, user) {
                      console.log(user);
                      res.send(user);
      });*/
 
-/*Pour supprimer un folder : => fonctionne
+/*Pour supprimer un FOLDER : => fonctionne
 userModel.update({_id:"59ee0331a5c8d85d806266b4"},{$pull: {'folders': {_id:"59eeff408b924032943bd8af"}}}, function (err, user) {
                      console.log(user);
                      res.send(user);
      });*/
 
-/*Pour supprimer un snippet : => fonctionne
+/*Pour supprimer un SNIPPET : => fonctionne
 userModel.update({'folders._id':"59eeff4a8b924032943bd8b0"},{$pull: {'folders.$.snippets': {_id:"59ef0193cb7d7e1be04f81ac"}}}, function (err, user) {
                     console.log(user);
                     res.send(user);
 });*/
 
-//AFFICHAGE FOLDER ET SNIPPET SELECTIONNE
- //Pour afficher un folder spécifique => fonctionne
+/*************************************************************************
+AFFICHAGE FOLDER ET SNIPPET SELECTIONNE
+*************************************************************************/
+ //Pour afficher un FOLDER spécifique : => fonctionne
 /*userModel.find({_id:"59edea0cbd2f2e2928a84fbe"},{folders: {$elemMatch: {_id:"59edeb12a9bd582df8a458f5"}}}, function (err, user) {
  console.log(JSON.stringify(user));
   res.send('Recorded comment of user');
 });*/
-/*Pour afficher un snippet spécifique => ne fonctionne pas
+/*Pour afficher un SNIPPET spécifique : => ne fonctionne pas
 userModel.find({_id:"59edea0cbd2f2e2928a84fbe"},{snippets: {$elemMatch: {_id:"59edfa7100bd3407e06d576c"}}},
 userModel.find({_id:"59edea0cbd2f2e2928a84fbe"},{'folders.snippets': {$in:{ _id:"59edfa7100bd3407e06d576c"}}},function (err, user) {
 console.log(JSON.stringify(user));
 res.send(user);
 });*/
 
-//MODIFICATION USER, FOLDER ET SNIPPET SELECTIONNE
+/*************************************************************************
+MODIFICATION USER, FOLDER ET SNIPPET SELECTIONNE
+*************************************************************************/
 /*Modification d'un champ du USER : => fonctionne
 userModel.update({_id:"59ef056a865e362e2092aa6e"}, {firstName: "Olivia"} , function (err, user) {
                      console.log(user);
                      res.send(user);
      });*/
+/*Modification d'un champ du FOLDER : => fonctionne
+userModel.update({'folders._id':"59ef05aa728f1218a45977a0"}, {$set: {'folders.$.folderStatus': "private"}} , function (err, folderName) {
+                     console.log(folderName);
+                     res.send(folderName);
+     });*/
+/*Modification d'un champ du SNIPPET : => fonctionne
+Voir solutions dans fichier texte*/
 
-
+//Page de test
 app.get('/loginPage', function (req, res) {
-    userModel.update({_id:"59ef056a865e362e2092aa6e",'folders._id':"59eeff408b924032943bd8af"}, {folderName: "Webpack"} , function (err, user) {
-                         console.log(user);
-                         res.send(user);
+    //userModel.update({'snippets._id':"59ef44b86473b708e0f392c2"}, {$set: {'snippets.$.snippetName': "reeactjs.js"}}
+    //userModel.update({'folders.snippets._id':"59ef44b86473b708e0f392c2"}, {$set: {'snippets.$.snippetName': "reeactjs.js"}}
+    //userModel.update({'folders._id':"59ef05b4728f1218a45977a1"}, {$set: {'snippets.$.snippetName': "reeactjs.js"}}
+   userModel.update({'folders._id':"59ef05b4728f1218a45977a1"},{$set: {'folders.$.snippets.0.languageType': "PHP"}}
+    //userModel.findByIdAndUpdate({'snippets._id':"59ef44b86473b708e0f392c2"},{$set: {'snippets.$.snippetName': "reeactjs.js"}}
+    , function (err, snippetName) {
+                         console.log(err);
+                         console.log(snippetName);
+                         res.send(snippetName);
          });
 });
-
-
+//charger le folder : une boucle sur ses snippets, avec l'id je vais comparer
+//une fois modifié je save le snippet de ce folder
 
 app.listen(80, function () {
     console.log("Server listening on port 8080");
