@@ -187,6 +187,8 @@ userModel.find({_id:"59edea0cbd2f2e2928a84fbe"},{'folders.snippets': {$in:{ _id:
 console.log(JSON.stringify(user));
 res.send(user);
 });*/
+/*Pour afficher un SNIPPET spécifique : => fonctionne
+userModel.find({_id:"59ef056a865e362e2092aa6e"},{'folders.snippets': 1, 'folders': { $slice: 1 }}*/
 
 /*************************************************************************
 MODIFICATION USER, FOLDER ET SNIPPET SELECTIONNE
@@ -202,21 +204,53 @@ userModel.update({'folders._id':"59ef05aa728f1218a45977a0"}, {$set: {'folders.$.
                      res.send(folderName);
      });*/
 /*Modification d'un champ du SNIPPET : => fonctionne
-Voir solutions dans fichier texte*/
+Voir solutions dans fichier texte
+  userModel.update({'folders._id':"59ef05b4728f1218a45977a1"},{$set: {'folders.$.snippets.0.languageType': "PHP"}}
+  ou
+  userModel.update({'folders':{$elemMatch: {'_id': '59ef05b4728f1218a45977a1'}}},{$set: {'folders.$.snippets.0.languageType': "Ruby"}}*/
 
 //Page de test
+var  positionMySnippet  = null;
 app.get('/loginPage', function (req, res) {
-    //userModel.update({'snippets._id':"59ef44b86473b708e0f392c2"}, {$set: {'snippets.$.snippetName': "reeactjs.js"}}
-    //userModel.update({'folders.snippets._id':"59ef44b86473b708e0f392c2"}, {$set: {'snippets.$.snippetName': "reeactjs.js"}}
-    //userModel.update({'folders._id':"59ef05b4728f1218a45977a1"}, {$set: {'snippets.$.snippetName': "reeactjs.js"}}
-   userModel.update({'folders._id':"59ef05b4728f1218a45977a1"},{$set: {'folders.$.snippets.0.languageType': "PHP"}}
-    //userModel.findByIdAndUpdate({'snippets._id':"59ef44b86473b708e0f392c2"},{$set: {'snippets.$.snippetName': "reeactjs.js"}}
-    , function (err, snippetName) {
-                         console.log(err);
-                         console.log(snippetName);
-                         res.send(snippetName);
-         });
+    //db.test.update({ 'classes.someClass.students' : {$elemMatch: {'name' : 'Jack'}}}, {'$set' : { 'classes.someClass.students.$.coolness' : 9}});
+
+/*réceupère l'id du folder=> boucle sur ses snippets
+je compare l'id de ce snippet actuel avec l'id du snippet dans le dossier
+je sors de la boucle avec le i
+et là je fais la mise à journal
+var =
+for (car i=0; i<)*/
+
+userModel.findOne({_id:"59ef056a865e362e2092aa6e"},{'_id':0,'folders': { $elemMatch: {_id:"59ef05b4728f1218a45977a1"}}
+,'folders.snippets': 1}
+    , function (err, snippets) {
+
+         var snippetCollection = snippets.folders[0].snippets;
+                            //console.log(JSON.stringify(snippets.folders[0]));
+                                //console.log(snippets.folders[0].snippets[0].snippetName);
+                                //console.log(err);
+                             //res.send(user);
+                  for (var i=0; i<snippetCollection.length; i++) {
+                      //console.log(snippetCollection[i]._id);
+                                if (snippetCollection[i]._id == '59ef06148f229127c0ae226f') {
+                                      // console.log(snippetCollection[i]._id +" == "+ '59ef06148f229127c0ae226f');
+                                         positionMySnippet = snippetCollection[i];
+                                         console.log('position '+ positionMySnippet.languageType);
+                                break;
+                               }
+                     }
+                                 var obj= positionMySnippet.languageType;
+                                                  //{$set: {'folders.$.snippets.0.languageType': "Ruby"}}
+        userModel.update({'folders':{$elemMatch: {'_id': '59ef05b4728f1218a45977a1'}}}, {$set: {obj: "Ruby"}}, function (err, snippets) {
+                console.log(JSON.stringify(snippets));
+                //console.log(JSON.stringify(snippets.folders[0]));
+                  res.send(snippets);
+              });
+     });
 });
+
+
+
 //charger le folder : une boucle sur ses snippets, avec l'id je vais comparer
 //une fois modifié je save le snippet de ce folder
 
